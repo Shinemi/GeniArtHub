@@ -1,9 +1,4 @@
-// La page d'accueil permet d'afficher de manière dynamique toutes les œuvres d'art. Les œuvres affichées sur la page d'accueil proviennent d'un serveur back développé avec NodeJS et Express.
-
-// Le serveur back est fourni avec le projet GeniArtHub.
-
 const productSection = document.querySelector(".products")
-
 
 class Product{
     constructor(id, shortTitle, title, image) {
@@ -13,6 +8,7 @@ class Product{
     this.image = image;
   }
 
+    // Génère et insère le HTML d'une œuvre dans le DOM + transmet l'id du produit dans le lien
     showProducts(){
         const template = `
              <article>
@@ -25,17 +21,21 @@ class Product{
 }
 
 
+// Récupère tous les produits depuis l'API et les affiche
 async function getAllProducts() {
   const url = "http://localhost:3000/api/products/";
   try {
+    // Appel API pour récupérer les produits
     const answer = await fetch(url);
     if (!answer.ok) {
       throw new Error(`Statut de réponse : ${answer.status}`); 
     }
 
+    // Parse la réponse JSON et crée une instance Product pour chaque œuvre
     const result = await answer.json();
     console.log(result);
     result.forEach(product => {
+        // Instancie chaque produit et l'ajoute au DOM (via l'appel de fonction)
         const newProduct = new Product(product._id, product.shorttitle, product.titre, product.image); 
         newProduct.showProducts(); 
     });
@@ -44,6 +44,5 @@ async function getAllProducts() {
     console.error(erreur.message);
   }
 }
-
 
 getAllProducts()
