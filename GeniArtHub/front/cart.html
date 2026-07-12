@@ -16,42 +16,46 @@
         </div>
     </header>
 
-    <main>
-        <h1>Mon panier</h1>
-        
-        <section id="cart">       
-                <h3 id="cart-item">Votre panier est vide.</h3>
-        </section>
-            
-        <h3 id="cart-total-price">Total :0.00€</h3>
+    <main class="cartPage">
+        <h1 id="h1Cart">Mon panier</h1>
 
-        <form action="" method="post">
-            <label for="firstname">Prénom :</label>
-            <br>
-            <input type="text" name="firstname" id="firstname">
-            <br>
-            <label for="lastname">Nom :</label>
-            <br>
-            <input type="text" name="lastname" id="lastname">
-            <br>
-            <label for="lastname">Adresse :</label>
-            <br>
-            <input type="text" name="address" id="address">
-            <br>
-            <label for="lastname">Ville :</label>
-            <br>
-            <input type="text" name="town" id="town">
-            <br>
-            <label for="email">Email :</label>
-            <br>
-            <input type="email" name="email" id="email">
-            <br>
-            <br>
-            <input type="submit" value="Passer commande" id="cart-validate">
-        </form>
+        <div class="cartLayout">
+
+            <div class="cartColumn">
+                <section id="cart">
+                    <h3 id="cartItem">Votre panier est vide.</h3>
+                </section>
+
+                <h3 id="cartTotalPrice">Total : 0.00€</h3>
+            </div>
+
+            <div class="cartFormColumn">
+                <form class="cartForm" action="" method="post">
+                    <h2>Livraison</h2>
+
+                    <label for="firstname">Prénom :</label>
+                    <input type="text" name="firstname" id="firstname">
+
+                    <label for="lastname">Nom :</label>
+                    <input type="text" name="lastname" id="lastname">
+
+                    <label for="address">Adresse :</label>
+                    <input type="text" name="address" id="address">
+
+                    <label for="town">Ville :</label>
+                    <input type="text" name="town" id="town">
+
+                    <label for="email">Email :</label>
+                    <input type="email" name="email" id="email">
+
+                    <input type="submit" value="Passer commande" id="cartValidate">
+                </form>
+            </div>
+
+        </div>
     </main>
 
-      <footer>
+    <footer>
         <p><a href="https://www.errantecreation.com/">Errante Creation</a> © 2023 - GeniArtHub</p>
     </footer>
     <script src="js/cart.js"></script>
