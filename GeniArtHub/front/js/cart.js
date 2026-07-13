@@ -70,67 +70,101 @@ async function displayCart() {
         })
 
     // Écouteur pour supprimer un article du panier
-    document.querySelectorAll(".remove-item").forEach(button => {
+    document.querySelectorAll(".removeItem").forEach(button => {
         button.addEventListener("click", () => {
             const index = button.dataset.index
             removeFromCart(index)
         })
     })
 
-    // Écouteur pour la validation de commande
-    validateCart.addEventListener("click", async (event) => {
-       
-        event.preventDefault()
-
-        const errors = []
-
-        const nameRegex = /^[a-zA-ZÀ-ÿ\s-]{2,}$/
-        // Prénom : minimum 2 lettres, pas de caractères spéciaux
-        if (!nameRegex.test(firstname.value.trim())) {
-            errors.push("Le prénom doit contenir au moins 2 lettres, sans caractères spéciaux.")
-        }
-
-        // Nom : minimum 2 lettres, pas de caractères spéciaux
-        if (!nameRegex.test(lastname.value.trim())) {
-            errors.push("Le nom doit contenir au moins 2 lettres, sans caractères spéciaux.")
-        }
-
-        // Adresse : au moins 10 caractères
-        if (address.value.trim().length < 10) {
-            errors.push("L'adresse doit contenir au moins 10 caractères.")
-        }
-
-        // Ville : au moins 3 caractères, pas de chiffres
-        const townRegex = /^[a-zA-ZÀ-ÿ\s-]{3,}$/
-        if (!townRegex.test(town.value.trim())) {
-            errors.push("La ville doit contenir au moins 3 caractères, sans chiffres.")
-        }
-
-        // Email : format valide
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!emailRegex.test(email.value.trim())) {
-            errors.push("L'adresse email n'est pas valide.")
-        }
-
-        // Panier non vide
-        const cart = JSON.parse(localStorage.getItem("cart")) || []
-        if (cart.length === 0) {
-            errors.push("Votre panier est vide.")
-        }
-
-        // Affichage des erreurs 
-        if (errors.length > 0) {
-            displayFormErrors(errors)
-            return
-        }
-
-        // Tout est valide : on peut "passer commande"
-        clearFormErrors();
-        const 
-        const answerOrder = await fetch(`http://localhost:3000/api/products/order`)
-        console.log(answerOrder)
-    })
 }
+// Écouteur pour la validation de commande
+validateCart.addEventListener("click", async (event) => {
+   
+    event.preventDefault()
+
+    const errors = []
+
+    const nameRegex = /^[a-zA-ZÀ-ÿ\s-]{2,}$/
+    // Prénom : minimum 2 lettres, pas de caractères spéciaux
+    if (!nameRegex.test(firstname.value.trim())) {
+        errors.push("Le prénom doit contenir au moins 2 lettres, sans caractères spéciaux.")
+    }
+
+    // Nom : minimum 2 lettres, pas de caractères spéciaux
+    if (!nameRegex.test(lastname.value.trim())) {
+        errors.push("Le nom doit contenir au moins 2 lettres, sans caractères spéciaux.")
+    }
+
+    // Adresse : au moins 10 caractères
+    if (address.value.trim().length < 10) {
+        errors.push("L'adresse doit contenir au moins 10 caractères.")
+    }
+
+    // Ville : au moins 3 caractères, pas de chiffres
+    const townRegex = /^[a-zA-ZÀ-ÿ\s-]{3,}$/
+    if (!townRegex.test(town.value.trim())) {
+        errors.push("La ville doit contenir au moins 3 caractères, sans chiffres.")
+    }
+
+    // Email : format valide
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email.value.trim())) {
+        errors.push("L'adresse email n'est pas valide.")
+    }
+
+    // Panier non vide
+    const cart = JSON.parse(localStorage.getItem("cart")) || []
+    if (cart.length === 0) {
+        errors.push("Votre panier est vide.")
+    }
+
+    // Affichage des erreurs 
+    if (errors.length > 0) {
+        displayFormErrors(errors)
+        return
+    }
+
+    // Tout est valide : on peut passer commande
+    clearFormErrors();
+    
+    // Construction du contenu attendu par l'API
+    const orderData = {
+        contact: {
+            firstName: firstname.value.trim(),
+            lastName: lastname.value.trim(),
+            address: address.value.trim(),
+            city: town.value.trim(),
+            email: email.value.trim()
+        },
+        products: cart.map(item => item.id)
+    };
+
+    try {
+        const answer = await fetch("http://localhost:3000/api/products/order", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(orderData)
+    });
+
+    if (!answer.ok) {
+        throw new Error(`Statut de réponse : ${answer.status}`);
+    }
+
+    const result = await answer.json();
+    console.log(result);
+
+    localStorage.removeItem("cart");
+    
+    // Redirection vers order.html avec le numéro de commande dans l'URL
+    window.location.href = `order.html?numero=${result.orderId}`;
+
+} catch (erreur) {
+    console.error(erreur.message);
+    displayFormErrors(["Une erreur est survenue lors de la validation de la commande. Veuillez réessayer."]);
+}
+    
+})
 
 // Met à jour la quantité d'un article dans le panier
 function updateQuantity(index, newQuantity) {

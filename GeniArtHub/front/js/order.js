@@ -1,10 +1,10 @@
-// La page panier est en deux parties. La première partie contient la liste des produits qui sont présents dans le panier. La deuxième partie contient un formulaire de commande qui permet d'effectuer une commande.
+const orderMessage = document.getElementById("orderMessage");
 
-// La liste des produits doit afficher :
+const params = new URLSearchParams(window.location.search);
+const numeroCommande = params.get("numero");
 
-// L'image
-// Le titre long
-// Le format choisi
-// Le prix unitaire
-// La quantité choisie
-// Un lien de suppression
+if (numeroCommande) {
+    orderMessage.textContent = `Merci pour votre commande ! Voici votre numéro de commande : ${numeroCommande}`;
+} else {
+    orderMessage.textContent = "Aucune commande trouvée.";
+}
