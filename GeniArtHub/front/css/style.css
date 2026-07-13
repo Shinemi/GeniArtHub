@@ -450,3 +450,32 @@ article > div > div.price > p {
     padding:14px 0;
     margin-top: 10px;
 }
+
+
+/* ORDER HTML */
+
+.orderConfirmation{
+    text-align: center;
+    padding: 30vh;
+}
+
+#orderMessage{
+    background-color: #F3F3F3;
+    font-family: 'Source Sans 3', sans-serif;
+    padding: 40px;
+}
+
+
+.backHome{
+    color: #FFF;
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    background: #EE7F43;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding:12px 24px;
+    max-width: 200px;
+}
