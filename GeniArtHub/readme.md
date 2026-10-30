@@ -81,9 +81,9 @@ Les données du panier doivent également être vidées.
 
 ## Endpoints de l'API
 
-- [http://localhost:3000/api/products/](http://localhost:3000/api/products/)
-- [http://localhost:3000/api/products/{product-id}](http://localhost:3000/api/products/{product-id})
-- [http://localhost:3000/api/products/order](http://localhost:3000/api/products/order)
+- [https://geniarthub.onrender.com/api/products/](https://geniarthub.onrender.com/api/products/)
+- [https://geniarthub.onrender.com/api/products/{product-id}](https://geniarthub.onrender.com/api/products/{product-id})
+- [https://geniarthub.onrender.com/api/products/order](https://geniarthub.onrender.com/api/products/order)
 
 ## Paramètres
 

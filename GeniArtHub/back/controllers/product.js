@@ -5,7 +5,7 @@ exports.getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
     const mappedProducts = products.map((product) => {
-      product.imageUrl = `${req.protocol}://${req.get('host')}/images/${product.Image}`;
+      // product.imageUrl = `${req.protocol}://${req.get('host')}/images/${product.Image}`;
       return product;
     });
     res.status(200).json(mappedProducts);
