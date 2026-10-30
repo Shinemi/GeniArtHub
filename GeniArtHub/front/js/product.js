@@ -11,7 +11,7 @@ function truncate(text, maxLength) {
 }
 
 async function getProduct() {
-  const url = `http://localhost:3000/api/products/${productId}`;
+  const url = `https://geniarthub.onrender.com/api/products/${productId}`;
   try {
     // Récupère les détails du produit depuis l'API
     const answer = await fetch(url);

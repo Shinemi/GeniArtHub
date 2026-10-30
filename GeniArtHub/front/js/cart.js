@@ -27,7 +27,7 @@ async function displayCart() {
     const cartWithPrices = []
 
     for (const item of cart) {
-        const answer = await fetch(`http://localhost:3000/api/products/${item.id}`)
+        const answer = await fetch(`https://geniarthub.onrender.com/api/products/${item.id}`)
         const product = await answer.json()
         const declinaison = product.declinaisons.find(d => d.taille === item.format)
         const price = declinaison ? declinaison.prix : 0
@@ -141,7 +141,7 @@ validateCart.addEventListener("click", async (event) => {
     };
 
     try {
-        const answer = await fetch("http://localhost:3000/api/products/order", {
+        const answer = await fetch("https://geniarthub.onrender.com/api/products/order", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(orderData)

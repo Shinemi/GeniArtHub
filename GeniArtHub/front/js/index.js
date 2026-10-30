@@ -23,7 +23,7 @@ class Product{
 
 // Récupère tous les produits depuis l'API et les affiche
 async function getAllProducts() {
-  const url = "http://localhost:3000/api/products/";
+  const url = "https://geniarthub.onrender.com/api/products/";
   try {
     // Appel API pour récupérer les produits
     const answer = await fetch(url);
